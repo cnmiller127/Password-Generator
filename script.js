@@ -15,7 +15,12 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-//var upperCase=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+function isInt(length)
+{
+    console.log(length % 1)
+    console.log(length % 1 === 0);
+    return length % 1 === 0;
+}
 
 
 function generatePassword(){
@@ -27,21 +32,22 @@ function generatePassword(){
   var special = "!@#$%^&*+~";
   var nums = "0123456789";
 
-
+// While loop woll iterate until user enters valid whole number between 8 and 128, inclusive
   var entry = false;
   while(entry === false){
-  var passLength= parseInt(prompt("How many characters would you like in your password? (Must be between 8 and 128 characters, inclusive)"));
-      if(passLength >= 8 && passLength<=128){
+  var passLength= Number(prompt("How many characters would you like in your password? (Must be whole number between 8 and 128 characters, inclusive)"));
+      if(passLength >= 8 && passLength<=128 && isInt(passLength)){
           entry = true ;
       }
       else{entry = false}
   }
 
-
-  var wantUpper = confirm("Would you like to include upper case letters in your password?");
+  // Asks user if they want each char type. Stores as true bool if they select ok.
   var wantLower = confirm("Would you like to include lower case letters in your password?");
-  var wantSpecial = confirm("Would you like to include special characters in your password?");
+  var wantUpper = confirm("Would you like to include upper case letters in your password?");
   var wantNums = confirm("Would you like to include numbers in your password?");
+  var wantSpecial = confirm("Would you like to include special characters in your password?");
+  
   var count = 0;
   var password = "";
   var index;
@@ -73,7 +79,7 @@ function generatePassword(){
     
     }
 
-
+// While loop that continues to count length of password. Breaks at password length 
   while (count < passLength){
     
 
@@ -109,7 +115,7 @@ function generatePassword(){
 
   return password;
 
-
+// Helper function that can access outer scope variables. Minimizes redundant code
       function addLetter(val){
         index = Math.floor(Math.random()*val.length);
         return (password + val[index]);
